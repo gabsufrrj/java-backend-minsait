@@ -26,7 +26,16 @@ public class Customer {
 	@Range(min = 0)
 	private BigDecimal rendimentoMensal;
 	
-//	private Endereco endereco;
+	@NotBlank
+	private String rua;
+	
+	@NotNull
+	@Range(min = 0)
+	private int numero;
+	
+	@NotNull
+	@Range(min = 0)
+	private Long cep;
 	
 	public Long getCpf() {
 		return cpf;
@@ -60,13 +69,30 @@ public class Customer {
 		this.rendimentoMensal = rendimentoMensal;
 	}
 
-//	public Endereco getEndereco() {
-//		return endereco;
-//	}
-//
-//	public void setEndereco(Endereco endereco) {
-//		this.endereco = endereco;
-//	}
+
+	public String getRua() {
+		return rua;
+	}
+
+	public void setRua(String rua) {
+		this.rua = rua;
+	}
+
+	public int getNumero() {
+		return numero;
+	}
+
+	public void setNumero(int numero) {
+		this.numero = numero;
+	}
+
+	public Long getCep() {
+		return cep;
+	}
+
+	public void setCep(Long cep) {
+		this.cep = cep;
+	}
 	
 	
 }
