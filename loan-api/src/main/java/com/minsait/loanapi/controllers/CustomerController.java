@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.minsait.loanapi.entities.Customer;
+import com.minsait.loanapi.exception.NotFoundException;
 import com.minsait.loanapi.services.CustomerService;
 
 import java.util.List;
@@ -46,19 +47,36 @@ public class CustomerController {
 	
 	@GetMapping("/{cpf}")
 	@ResponseStatus(HttpStatus.OK)
-	public Optional<Customer> findCustomerByCpf(@PathVariable Long cpf) {
-		return this.customerService.findCustomerByCpf(cpf);
+	public Optional<Customer> findCustomerByCpf(@PathVariable Long cpf) throws NotFoundException {
+		try {
+			return this.customerService.findCustomerByCpf(cpf);
+		} catch (NotFoundException e) {
+			System.out.println(e.getMessage());
+			throw new NotFoundException("Cliente não encontrado em nossa base de dados.");
+		}
 	}
 	
 	@DeleteMapping("/{cpf}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public void deleteCustomer(@PathVariable Long cpf) {
-		this.customerService.deleteCustomer(cpf);
+	public boolean deleteCustomer(@PathVariable Long cpf) throws NotFoundException {
+		try {
+			this.customerService.deleteCustomer(cpf);
+			return true;
+		} catch (NotFoundException e) {
+			System.out.println(e.getMessage());
+			throw new NotFoundException("Cliente não encontrado em nossa base de dados.");
+		}
 	}
 	
-//	@PutMapping("/{cpf}")
-//	@ResponseStatus(HttpStatus.OK)
-//	public void updateCustomer(@PathVariable Long cpf) {
-//		this.customerService.updateCustomer(cpf);
-//	}
+	@PutMapping("/{cpf}")
+	@ResponseStatus(HttpStatus.OK)
+	public Customer updateCustomer(@PathVariable Long cpf, @Valid @RequestBody Customer customer) throws NotFoundException {
+		try {
+			return this.customerService.updateCustomer(cpf, customer);	
+			
+		} catch (NotFoundException e) {
+			System.out.println(e.getMessage());
+			throw new NotFoundException("Cliente não encontrado em nossa base de dados.");
+		}
+	}
 }
