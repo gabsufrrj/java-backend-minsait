@@ -2,8 +2,6 @@ package com.minsait.loanapi.types;
 
 import java.math.BigDecimal;
 
-import com.minsait.loanapi.services.LoanService;
-
 
 public enum Relacionamento {
 	
