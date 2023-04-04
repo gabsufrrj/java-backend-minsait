@@ -69,8 +69,8 @@ public class Loan {
 		return valorFinal;
 	}
 
-	public void setValorFinal() {
-		this.valorFinal = this.relacionamento.calculaValorFinal(this.valorInicial);
+	public void setValorFinal(int numEmprestimos) {
+		this.valorFinal = this.relacionamento.calculaValorFinal(this.valorInicial, numEmprestimos);
 	}
 
 	public Relacionamento getRelacionamento() {
