@@ -6,10 +6,8 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import com.minsait.loanapi.entities.Customer;
 import com.minsait.loanapi.entities.Loan;
 import com.minsait.loanapi.exception.NotAuthorizedException;
 import com.minsait.loanapi.exception.NotFoundException;
@@ -52,7 +50,9 @@ public class LoanService {
 			boolean validacaoDeRendimento = calculaValorTotalDeEmprestimos(rendimentoMensal, loan.getValorInicial());
 			
 			if (validacaoDeRendimento) {
-				loan.setValorFinal();
+				int numEmprestimos = calculaNumeroDeEmprestimos(cpf) + 1;
+				System.out.println("EMPRESTIMOOOOOOOS " + numEmprestimos);
+				loan.setValorFinal(numEmprestimos);
 				return this.loanRepository.save(loan);				
 			}
 			
