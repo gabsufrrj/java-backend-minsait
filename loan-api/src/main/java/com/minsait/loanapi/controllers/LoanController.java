@@ -45,8 +45,8 @@ public class LoanController {
 	
 	@GetMapping
 	@ResponseStatus(HttpStatus.OK)
-	public List<Loan> findAllCustomersLoans() {
-		return this.loanService.findAllCustomersLoans();
+	public List<Loan> findAllCustomersLoans(@PathVariable Long cpf) {
+		return this.loanService.findAllCustomersLoans(cpf);
 	}
 	
 	@GetMapping("/{id}")

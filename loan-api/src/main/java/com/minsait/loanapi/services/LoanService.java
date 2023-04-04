@@ -3,6 +3,7 @@ package com.minsait.loanapi.services;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -51,6 +52,7 @@ public class LoanService {
 			boolean validacaoDeRendimento = calculaValorTotalDeEmprestimos(rendimentoMensal, loan.getValorInicial());
 			
 			if (validacaoDeRendimento) {
+				loan.setValorFinal();
 				return this.loanRepository.save(loan);				
 			}
 			
@@ -60,8 +62,11 @@ public class LoanService {
 		throw new NotFoundException("Cliente não encontrado na base de dados");
 	}
 	
-	public List<Loan> findAllCustomersLoans() {
-		return this.loanRepository.findAll();
+	public List<Loan> findAllCustomersLoans(Long cpf) {
+		List<Loan> loanList = this.loanRepository.findAll();
+		return loanList.stream()
+			.filter(el -> cpf.equals(el.getCpfCliente()))
+				.collect(Collectors.toList());
 	}
 
 	public void deleteLoan(Long id) throws NotFoundException {
@@ -81,5 +86,9 @@ public class LoanService {
 
 		throw new NotFoundException("Cliente não encontrado em nossa base de dados");
 
+	}
+	
+	public int calculaNumeroDeEmprestimos(Long cpf) {
+		return findAllCustomersLoans(cpf).size();
 	}
 }
