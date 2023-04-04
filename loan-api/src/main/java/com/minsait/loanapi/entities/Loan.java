@@ -8,9 +8,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Range;
+
+import com.minsait.loanapi.types.Relacionamento;
 
 @Entity
 public class Loan {
@@ -25,12 +28,10 @@ public class Loan {
 	@Range(min = 0)
 	private BigDecimal valorInicial;
 	
-	@NotNull
 	@Range(min = 0)
 	private BigDecimal valorFinal;
 	
-	@NotBlank
-	private String relacionamento;
+	private Relacionamento relacionamento;
 	
 	@NotNull
 	@Range(min = 0)
@@ -68,15 +69,15 @@ public class Loan {
 		return valorFinal;
 	}
 
-	public void setValorFinal(BigDecimal valorFinal) {
-		this.valorFinal = valorFinal;
+	public void setValorFinal() {
+		this.valorFinal = this.relacionamento.calculaValorFinal(this.valorInicial);
 	}
 
-	public String getRelacionamento() {
+	public Relacionamento getRelacionamento() {
 		return relacionamento;
 	}
 
-	public void setRelacionamento(String relacionamento) {
+	public void setRelacionamento(Relacionamento relacionamento) {
 		this.relacionamento = relacionamento;
 	}
 
