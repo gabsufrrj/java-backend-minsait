@@ -50,8 +50,8 @@ public class LoanService {
 			boolean validacaoDeRendimento = calculaValorTotalDeEmprestimos(rendimentoMensal, loan.getValorInicial());
 			
 			if (validacaoDeRendimento) {
-				int numEmprestimos = calculaNumeroDeEmprestimos(cpf) + 1;
-				System.out.println("EMPRESTIMOOOOOOOS " + numEmprestimos);
+				int numEmprestimos = calculaNumeroDeEmprestimos(cpf);
+//				System.out.println("EMPRESTIMOOOOOOOS " + numEmprestimos);
 				loan.setValorFinal(numEmprestimos);
 				return this.loanRepository.save(loan);				
 			}
