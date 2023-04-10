@@ -33,13 +33,11 @@ public class Loan {
 	
 	private Relacionamento relacionamento;
 	
-	@NotNull
-	@Range(min = 0)
-	private Long dataInicial;
+	@NotBlank
+	private String dataInicial;
 	
-	@NotNull
-	@Range(min = 0)
-	private Long dataFinal;
+	@NotBlank
+	private String dataFinal;
 
 	public Long getId() {
 		return id;
@@ -81,22 +79,19 @@ public class Loan {
 		this.relacionamento = relacionamento;
 	}
 
-	public Long getDataInicial() {
+	public String getDataInicial() {
 		return dataInicial;
 	}
 
-	public void setDataInicial(Long dataInicial) {
+	public void setDataInicial(String dataInicial) {
 		this.dataInicial = dataInicial;
 	}
 
-	public Long getDataFinal() {
+	public String getDataFinal() {
 		return dataFinal;
 	}
 
-	public void setDataFinal(Long dataFinal) {
+	public void setDataFinal(String dataFinal) {
 		this.dataFinal = dataFinal;
-	}
-
-	
-	
+	}	
 }
