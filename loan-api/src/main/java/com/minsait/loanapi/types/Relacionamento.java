@@ -21,7 +21,7 @@ public enum Relacionamento {
 			if (valorInicial.compareTo(valueToCompare) == 1) {
 				BigDecimal multiplicador = new BigDecimal("1.40");
 				return valorInicial.multiply(multiplicador);
-			} 
+			}
 			
 			else {
 				BigDecimal multiplicador = new BigDecimal("1.60");
@@ -59,6 +59,5 @@ public enum Relacionamento {
 		return this.codigo;
 	}
 	
-
 	public abstract BigDecimal calculaValorFinal(BigDecimal valorInicial, int numEmprestimos);
 }
