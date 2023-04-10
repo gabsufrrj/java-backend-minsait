@@ -35,7 +35,7 @@ public enum Relacionamento {
 		@Override
 		public BigDecimal calculaValorFinal (BigDecimal valorInicial, int numEmprestimos) {
 			
-			if (numEmprestimos > 1 && numEmprestimos != 0 ) {
+			if (numEmprestimos > 1) {
 				BigDecimal multiplicador = new BigDecimal("1.3");
 				return valorInicial.multiply(multiplicador);
 			}
