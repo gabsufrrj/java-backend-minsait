@@ -21,6 +21,7 @@ public class CustomerService {
 	}
 
 	public Customer createCustomer(Customer customer) {
+		if (customer.getComplemento() == null) customer.setComplemento("");
 		return this.customerRepository.save(customer);
 	}
 
@@ -50,6 +51,7 @@ public class CustomerService {
 	public Customer updateCustomer(String cpf, Customer customer) throws NotFoundException {
 		if (this.customerRepository.existsById(cpf)) {
 			customer.setCpf(cpf);
+			if (customer.getComplemento() == null) customer.setComplemento("");
 			return this.customerRepository.save(customer);
 		}
 		
