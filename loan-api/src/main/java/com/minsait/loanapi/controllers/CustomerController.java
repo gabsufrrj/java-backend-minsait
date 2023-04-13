@@ -47,7 +47,7 @@ public class CustomerController {
 	
 	@GetMapping("/{cpf}")
 	@ResponseStatus(HttpStatus.OK)
-	public Optional<Customer> findCustomerByCpf(@PathVariable Long cpf) throws NotFoundException {
+	public Optional<Customer> findCustomerByCpf(@PathVariable String cpf) throws NotFoundException {
 		try {
 			return this.customerService.findCustomerByCpf(cpf);
 		} catch (NotFoundException e) {
@@ -58,7 +58,7 @@ public class CustomerController {
 	
 	@DeleteMapping("/{cpf}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public boolean deleteCustomer(@PathVariable Long cpf) throws NotFoundException {
+	public boolean deleteCustomer(@PathVariable String cpf) throws NotFoundException {
 		try {
 			this.customerService.deleteCustomer(cpf);
 			return true;
@@ -70,7 +70,7 @@ public class CustomerController {
 	
 	@PutMapping("/{cpf}")
 	@ResponseStatus(HttpStatus.OK)
-	public Customer updateCustomer(@PathVariable Long cpf, @Valid @RequestBody Customer customer) throws NotFoundException {
+	public Customer updateCustomer(@PathVariable String cpf, @Valid @RequestBody Customer customer) throws NotFoundException {
 		try {
 			return this.customerService.updateCustomer(cpf, customer);	
 			

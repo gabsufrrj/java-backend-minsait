@@ -28,7 +28,7 @@ public class CustomerService {
 		return this.customerRepository.findAll();
 	}
 
-	public Optional<Customer> findCustomerByCpf(Long cpf) throws NotFoundException {
+	public Optional<Customer> findCustomerByCpf(String cpf) throws NotFoundException {
 
 		if (this.customerRepository.existsById(cpf)) {
 			return this.customerRepository.findById(cpf);
@@ -38,7 +38,7 @@ public class CustomerService {
 
 	}
 
-	public void deleteCustomer(Long cpf) throws NotFoundException {
+	public void deleteCustomer(String cpf) throws NotFoundException {
 		if (this.customerRepository.existsById(cpf)) {
 			this.customerRepository.deleteById(cpf);
 		} else {
@@ -47,7 +47,7 @@ public class CustomerService {
 		}
 	}
 
-	public Customer updateCustomer(Long cpf, Customer customer) throws NotFoundException {
+	public Customer updateCustomer(String cpf, Customer customer) throws NotFoundException {
 		if (this.customerRepository.existsById(cpf)) {
 			customer.setCpf(cpf);
 			return this.customerRepository.save(customer);
