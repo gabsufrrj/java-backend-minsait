@@ -21,7 +21,11 @@ public class CustomerService {
 	}
 
 	public Customer createCustomer(Customer customer) {
-		if (customer.getComplemento() == null) customer.setComplemento("");
+		String complemento = customer.getComplemento();
+		if (complemento != null) {
+			String trim = complemento.trim();
+			if (trim == "") customer.setComplemento(null);
+		}
 		return this.customerRepository.save(customer);
 	}
 
@@ -49,9 +53,14 @@ public class CustomerService {
 	}
 
 	public Customer updateCustomer(String cpf, Customer customer) throws NotFoundException {
+		String complemento = customer.getComplemento();
+
 		if (this.customerRepository.existsById(cpf)) {
+			if (complemento != null) {
+				String trim = complemento.trim();
+				if (trim == "") customer.setComplemento(null);
+			}
 			customer.setCpf(cpf);
-			if (customer.getComplemento() == null) customer.setComplemento("");
 			return this.customerRepository.save(customer);
 		}
 		
