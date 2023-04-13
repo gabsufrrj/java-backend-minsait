@@ -41,7 +41,7 @@ public class LoanService {
 	}
 	
 	
-	public Loan createLoan(Loan loan, Long cpf) throws NotFoundException, NotAuthorizedException {
+	public Loan createLoan(Loan loan, String cpf) throws NotFoundException, NotAuthorizedException {
 		if (this.customerRepository.existsById(cpf)) {
 			loan.setCpfCliente(cpf);
 			
@@ -62,7 +62,7 @@ public class LoanService {
 		throw new NotFoundException("Cliente não encontrado na base de dados");
 	}
 	
-	public List<Loan> findAllCustomersLoans(Long cpf) {
+	public List<Loan> findAllCustomersLoans(String cpf) {
 		List<Loan> loanList = this.loanRepository.findAll();
 		return loanList.stream()
 			.filter(el -> cpf.equals(el.getCpfCliente()))
@@ -88,7 +88,7 @@ public class LoanService {
 
 	}
 	
-	public int calculaNumeroDeEmprestimos(Long cpf) {
+	public int calculaNumeroDeEmprestimos(String cpf) {
 		return findAllCustomersLoans(cpf).size();
 	}
 }

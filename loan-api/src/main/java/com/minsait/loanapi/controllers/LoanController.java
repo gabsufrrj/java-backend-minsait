@@ -34,7 +34,7 @@ public class LoanController {
 	
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public Loan createLoan(@Valid @RequestBody Loan loan, @PathVariable Long cpf) throws NotFoundException, NotAuthorizedException {
+	public Loan createLoan(@Valid @RequestBody Loan loan, @PathVariable String cpf) throws NotFoundException, NotAuthorizedException {
 		try {
 			return this.loanService.createLoan(loan, cpf);
 		} catch (NotFoundException e) {
@@ -45,7 +45,7 @@ public class LoanController {
 	
 	@GetMapping
 	@ResponseStatus(HttpStatus.OK)
-	public List<Loan> findAllCustomersLoans(@PathVariable Long cpf) {
+	public List<Loan> findAllCustomersLoans(@PathVariable String cpf) {
 		return this.loanService.findAllCustomersLoans(cpf);
 	}
 	

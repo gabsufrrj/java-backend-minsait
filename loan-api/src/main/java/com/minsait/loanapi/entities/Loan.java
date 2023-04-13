@@ -6,7 +6,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
@@ -21,13 +20,12 @@ public class Loan {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	private Long cpfCliente;
+	private String cpfCliente;
 	
 	@NotNull
 	@Range(min = 0)
 	private BigDecimal valorInicial;
 	
-	@Range(min = 0)
 	private BigDecimal valorFinal;
 	
 	private Relacionamento relacionamento;
@@ -37,20 +35,16 @@ public class Loan {
 	
 	@NotBlank
 	private String dataFinal;
-
+	
 	public Long getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public String getCpfCliente() {
+		return this.cpfCliente;
 	}
 
-	public Long getCpfCliente() {
-		return cpfCliente;
-	}
-
-	public void setCpfCliente(Long cpfCliente) {
+	public void setCpfCliente(String cpfCliente) {
 		this.cpfCliente = cpfCliente;
 	}
 
