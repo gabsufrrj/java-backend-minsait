@@ -33,17 +33,48 @@ public class LoanService {
 		
 		int comparaValores = valorInicial.compareTo(valorTotal);
 		
+		
 		if (comparaValores == 1) {
 			return false;
-		} 
+		}
 		
 		return true;
+	}
+	
+	public BigDecimal calculaSaldoCliente(String cpf) {
+		List<Loan> loans = findAllCustomersLoans(cpf);
+		
+		List<BigDecimal> valores = 	loans.stream()
+				.map(loan -> loan.getValorFinal())
+				.collect(Collectors.toList());
+				
+		BigDecimal ZERO = new BigDecimal("0");
+		BigDecimal soma = valores.stream().reduce(ZERO, (acc, curr) -> acc.add(curr));
+		
+//		System.out.println(soma);
+		return soma;
+	}
+	
+	public boolean validacaoFinal(BigDecimal rendimentoMensal, BigDecimal valorInicial, BigDecimal soma) {
+		BigDecimal TEN = new BigDecimal("10");
+		BigDecimal valorTotal = rendimentoMensal.multiply(TEN);
+		
+//		System.out.println("CALCULO " + valorTotal.subtract(soma));
+		
+		int compare = valorTotal.subtract(soma).compareTo(valorInicial);
+		
+		if (compare == 1 || compare == 0) return true;
+		
+		return false;
+		
 	}
 	
 	
 	public Loan createLoan(Loan loan, String cpf) throws NotFoundException, NotAuthorizedException {
 		if (this.customerRepository.existsById(cpf)) {
 			loan.setCpfCliente(cpf);
+			
+			
 			
 			BigDecimal rendimentoMensal = this.customerRepository.findById(cpf).get().getRendimentoMensal();
 			
@@ -52,13 +83,22 @@ public class LoanService {
 			if (validacaoDeRendimento) {
 				int numEmprestimos = calculaNumeroDeEmprestimos(cpf);
 //				System.out.println("EMPRESTIMOOOOOOOS " + numEmprestimos);
+				BigDecimal saldo = calculaSaldoCliente(cpf);
 				loan.setValorFinal(numEmprestimos);
-				return this.loanRepository.save(loan);				
+				
+				boolean validacaoFinal = validacaoFinal(rendimentoMensal, loan.getValorInicial(), saldo);
+				
+				if (validacaoFinal) return this.loanRepository.save(loan);
+				
+				throw new NotAuthorizedException("Valor de Empréstimo não autorizado");
+						
 			}
+			
 			
 			throw new NotAuthorizedException("Valor de Empréstimo não autorizado");
 			
 		}
+		
 		throw new NotFoundException("Cliente não encontrado na base de dados");
 	}
 	
