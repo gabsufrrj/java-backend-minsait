@@ -45,6 +45,16 @@ public class Customer {
 	@Pattern(regexp="^[0-9]{8}$", message="O campo CEP deve ter exatamente 8 dígitos.")
 	private String cep;
 	
+	private String complemento;
+	
+	public String getComplemento() {
+		return complemento;
+	}
+
+	public void setComplemento(String complemento) {
+		this.complemento = complemento;
+	}
+
 	public String getCpf() {
 		return cpf;
 	}
