@@ -22,7 +22,7 @@ Esse repositório foi criado para realizar o desafio técnico de Backend do proc
 
 ## Rotas 
 
-**CLIENTES
+**CLIENTES**
 
 1. POST - /api/v1/clientes - cadastra um cliente no banco de dados.
 2. GET  - /api/v1/clientes - lista todos os clientes cadastrados.
@@ -31,7 +31,7 @@ Esse repositório foi criado para realizar o desafio técnico de Backend do proc
 5. PUT - /api/v1/clientes/:cpf - atualiza o cliente possuidor daquele CPF no banco de dados.
 
 
-**EMPRÉSTIMOS
+**EMPRÉSTIMOS**
 
 1. POST - /api/v1/clientes/:cpf/emprestimos - adiciona um empréstimo para o cliente possuidor daquele CPF na base de dados.
 2. GET  - /api/v1/clientes/:cpf/emprestimos - lista todos os empréstimos daquele cliente cadastrado.
